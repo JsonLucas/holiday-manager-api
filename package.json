@@ -8,8 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc",
-    "vercel-build": "npx prisma migrate deploy",
+    "build": "npx prisma migrate deploy && tsc",
     "start": "node ./dist/src/index.js",
     "test": "test"
   },
