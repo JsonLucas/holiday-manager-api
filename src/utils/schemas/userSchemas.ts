@@ -14,5 +14,6 @@ export const loginUserSchema = joi.object({
 });
 
 export const updatePasswordSchema = joi.object({
+    email: joi.string().email().required(),
     password: joi.string().required().regex(passwordRegex)
 });

@@ -11,10 +11,5 @@ export interface ISessionRepository {
     delete: (id: string) => Promise<boolean>
     deleteAllUserSessions: (user_id: number) => Promise<boolean>
     getById: (id: string) => Promise<ISession | null>
-}
-
-export interface ISessionMiddleware {
-    generateAccessKey: (user_id: number) => void
-    updateAccessKey: (id: string) => void
-    excludeAccessKey: (id: string) => void 
+    getPreviousUserSession: (user_id: number) => Promise<ISession | null>
 }

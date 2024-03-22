@@ -16,8 +16,10 @@ userRouter.post('/signup',
     async (req: Request, res: Response) => await factory.createUserController().signUp(req, res)
 );
 
+userRouter.post('/verificate-email', async (req: Request, res: Response) => await factory.createAuthMiddleware().verificateUserExists(req, res));
+
 userRouter.patch('/forgot-password', 
-    async (req: Request, res: Response, next: NextFunction) => await factory.createAuthMiddleware().verificateUserNotExists(req, res, next),
+    async (req: Request, res: Response, next: NextFunction) => await factory.createAuthMiddleware().verificateUserExists(req, res, next),
     async (req: Request, res: Response, next: NextFunction) => await factory.createUserMiddleware().validateUpdatePasswordPayload(req, res, next),
     async (req: Request, res: Response) => await factory.createUserController().updatePassword(req, res)
 );

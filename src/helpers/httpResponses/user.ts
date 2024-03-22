@@ -5,6 +5,11 @@ export const SUCCESSFULY_LOGGED_IN = {
     message: "Successfuly logged in."
 }
 
+export const SUCCESSFULY_VERIFICATED = {
+    code: StatusCodes.REQUEST_OK,
+    message: ""
+}
+
 export const CREATED_USER = {
     code: StatusCodes.SUCCESSFULY_CREATED,
     message: "Successfuly created user."

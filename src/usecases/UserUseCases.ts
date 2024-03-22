@@ -18,8 +18,13 @@ export class UserUseCases implements IUserUseCases {
         const hashPassword = this.crypto.encrypt(password);
         if(user) {
             if(this.crypto.compare(user.password, hashPassword)) {
-                const { id } = await this.sessionRepository.create(user.id);
-                return id
+                const previousSession = await this.sessionRepository.getPreviousUserSession(user.id);
+                if(!previousSession){
+                    const { id } = await this.sessionRepository.create(user.id);
+                    return id
+                }
+                await this.renovateSession(previousSession.id);
+                return previousSession.id;
             };
         }
 

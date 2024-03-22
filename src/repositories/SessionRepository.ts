@@ -27,4 +27,8 @@ export class SessionRepository implements ISessionRepository {
     public async getById (id: string): Promise<ISession | null> {
         return await db.session.findUnique({ where: { id } });
     }
+
+    public async getPreviousUserSession(user_id: number): Promise<ISession | null> {
+        return await db.session.findFirst({ where: { user_id } });
+    }
 }
