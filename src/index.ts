@@ -5,7 +5,7 @@ import { port } from './constants/env';
 import 'express-async-errors';
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(json());
 app.use(router);
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
