@@ -1,0 +1,37 @@
+version: '3'
+
+networks:
+  holiday_manager_net:
+    driver: bridge
+
+services:
+  db:
+    container_name: mysql
+    image: mysql:latest
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    networks:
+      - holiday_manager_net
+
+  api:
+    container_name: api
+    build: .
+    ports:
+      - '5000:5000'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:admin@db:3306/db_holiday_manager
+      - PORT=5000
+      - CRYPTO_SECRET=fd85b494-aaaa
+      - CRYPTO_IV_SECRET=smslt
+      - CRYPTO_ALGORITHM=AES-256-CBC
+    depends_on:
+      - db
+    networks:
+      - holiday_manager_net
+    restart: always
+    command: npx prisma db push
+volumes:
+  mysql_data:
