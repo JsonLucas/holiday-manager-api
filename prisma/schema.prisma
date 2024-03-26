@@ -13,38 +13,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id Int @id @default(autoincrement())
   name String
   email String @unique
   password String
-  holiday Holiday[]
-  session Session[]
+  holiday Holidays[]
+  session Sessions[]
 }
 
-model Holiday {
+model Holidays {
   id Int @id @default(autoincrement())
   title String
   coordinates String
   date DateTime
   description String?
   user_id Int
-  user User @relation(fields: [user_id], references: [id])
-  task Task[]
+  user Users @relation(fields: [user_id], references: [id])
+  task Tasks[]
 }
 
-model Task {
+model Tasks {
   id Int @id @default(autoincrement())
   title String
   description String?
   holiday_id Int
-  holiday Holiday @relation(fields: [holiday_id], references: [id], onDelete: Cascade)
+  holiday Holidays @relation(fields: [holiday_id], references: [id], onDelete: Cascade)
 }
 
-model Session {
+model Sessions {
   id String @id @default(uuid())
   user_id Int
   last_access DateTime @default(now())
   is_active Boolean @default(true)
-  user User @relation(fields: [user_id], references: [id])
+  user Users @relation(fields: [user_id], references: [id])
 }
